@@ -12,7 +12,8 @@ public class Robot extends OpMode
     private DcMotor right_front_motor;
     private DcMotor left_back_motor;
     private DcMotor right_back_motor;
-    private DcMotor intake_motor;
+    private DcMotor right_intake_motor;
+    private DcMotor left_intake_motor;
 
     @Override
     public void init()
@@ -21,10 +22,12 @@ public class Robot extends OpMode
         right_front_motor =hardwareMap.get(DcMotor.class, "front_right_motor");
         left_back_motor =hardwareMap.get(DcMotor.class, "back_left_motor");
         right_back_motor =hardwareMap.get(DcMotor.class, "back_right_motor");
-        intake_motor = hardwareMap.get(DcMotor.class, "intake_motor");
+        right_intake_motor = hardwareMap.get(DcMotor.class, "right_intake_motor");
+        left_intake_motor = hardwareMap.get(DcMotor.class, "left_intake_motor");
 
         right_front_motor.setDirection(DcMotor.Direction.REVERSE);
         right_back_motor.setDirection(DcMotor.Direction.REVERSE);
+        right_intake_motor.setDirection(DcMotor.Direction.REVERSE);
     }
 
     @Override
@@ -42,12 +45,16 @@ public class Robot extends OpMode
 
         if (rt > 0.5)
         {
-            intake_motor.setPower(1);
+            right_intake_motor.setPower(1);
+            left_intake_motor.setPower(1);
         }
         else
         {
-            intake_motor.setPower(0);
+            right_intake_motor.setPower(0);
+            left_intake_motor.setPower(0);
         }
-        telemetry.addData("intake",intake_motor.getPower());
+        telemetry.addData("right intake",right_intake_motor.getPower());
+        telemetry.addData("left intake",right_intake_motor.getPower());
+
     }
 }
