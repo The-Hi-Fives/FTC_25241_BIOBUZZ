@@ -4,6 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+
+// limelight imports
+import com.qualcomm.hardware.limelightvision.Limelight3A;
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.LLResultTypes.FiducialResult;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @TeleOp()
 public class Robot extends OpMode
@@ -19,6 +27,12 @@ public class Robot extends OpMode
     private Servo pollen_gate_servo;
     private DcMotor pollen_shooter;
     private DcMotor nectar_shooter;
+
+    // sensors and camera
+    private DistanceSensor distanceSensor;
+    private Limelight3A limelight;
+
+
 
     @Override
     public void init()
@@ -39,6 +53,16 @@ public class Robot extends OpMode
         right_front_motor.setDirection(DcMotor.Direction.REVERSE);
         right_back_motor.setDirection(DcMotor.Direction.REVERSE);
         right_intake_motor.setDirection(DcMotor.Direction.REVERSE);
+
+        //hardware map - distance sensor
+        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance_sensor");
+
+        // Hardware Map - Limelight
+        limelight = hardwareMap.get(Limelight3A.class, "limelight");
+        limelight.setPollRateHz(100);
+        limelight.start();
+        limelight.pipelineSwitch(0);
+        //The zero needs to be set up for the April tags
     }
 
     @Override
