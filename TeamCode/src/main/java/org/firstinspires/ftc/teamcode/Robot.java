@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,9 +10,11 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 // limelight imports
 import com.qualcomm.hardware.limelightvision.Limelight3A;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+// the lines below say they are not used but were in zoie's
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes.FiducialResult;
-
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @TeleOp()
@@ -37,7 +41,7 @@ public class Robot extends OpMode
     @Override
     public void init()
     {
-        // telling everthing what it is plugged into
+        // telling everything what it is plugged into
         left_front_motor =hardwareMap.get(DcMotor.class, "front_left_motor");
         right_front_motor =hardwareMap.get(DcMotor.class, "front_right_motor");
         left_back_motor =hardwareMap.get(DcMotor.class, "back_left_motor");
@@ -143,5 +147,22 @@ public class Robot extends OpMode
         }
         telemetry.addData("nectar shooter",nectar_shooter.getPower());
 
+        // - DISTANCE SENSOR (LiDAR)
+        double distanceInches = distanceSensor.getDistance(DistanceUnit.INCH);
+        telemetry.addData("LiDAR Distance (in)", "%.2f", distanceInches);
+
+        // - LIMELIGHT APRILTAG READINGS
+        LLResult result = limelight.getLatestResult();
+        if (result != null && result.isValid()) {
+            telemetry.addData("Limelight Tx", result.getTx());
+            telemetry.addData("Limelight Ty", result.getTy());
+
+            for (LLResultTypes.FiducialResult fiducial : result.getFiducialResults()) {
+                telemetry.addData("Detected Tag ID", fiducial.getFiducialId());
+            }
+        } else {
+            telemetry.addData("Limelight", "No tag visible");
+        }
+        telemetry.update();
     }
 }
