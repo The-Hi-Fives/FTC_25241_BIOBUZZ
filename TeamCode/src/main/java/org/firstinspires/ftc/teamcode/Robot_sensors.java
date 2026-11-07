@@ -76,10 +76,10 @@ public class Robot_sensors extends OpMode
         boolean ps = gamepad1.left_bumper;
         boolean ns = gamepad1.right_bumper;
 
-        left_front_motor.setPower(py - px + rx);
+        left_front_motor.setPower(py + px +rx);
         right_front_motor.setPower(py + px - rx);
-        left_back_motor.setPower(py + px + rx);
-        right_back_motor.setPower(py - px - rx);
+        right_back_motor.setPower(py - px + rx);
+        right_back_motor.setPower(py + px - rx);
 
         if (rt > 0.5)
         {
