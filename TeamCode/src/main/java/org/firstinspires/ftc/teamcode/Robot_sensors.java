@@ -69,7 +69,7 @@ public class Robot_sensors extends OpMode
     {
         double px = gamepad1.left_stick_x;
         double py = gamepad1.left_stick_y;
-        double rx = gamepad1.right_stick_x;
+        double rx = -gamepad1.right_stick_x;
         double rt = gamepad1.right_trigger;
         boolean pg = gamepad1.a;
         boolean ng = gamepad1.b;
@@ -77,8 +77,8 @@ public class Robot_sensors extends OpMode
         boolean ns = gamepad1.right_bumper;
 
         left_front_motor.setPower(py + px +rx);
-        right_front_motor.setPower(py + px - rx);
-        right_back_motor.setPower(py - px + rx);
+        right_front_motor.setPower(py - px - rx);
+        left_back_motor.setPower(py - px + rx);
         right_back_motor.setPower(py + px - rx);
 
         if (rt > 0.5)
