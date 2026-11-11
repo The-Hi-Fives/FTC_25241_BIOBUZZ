@@ -70,11 +70,11 @@ public class Robot_sensors extends OpMode
         double px = gamepad1.left_stick_x;
         double py = gamepad1.left_stick_y;
         double rx = -gamepad1.right_stick_x;
-        double rt = gamepad1.right_trigger;
-        boolean pg = gamepad1.a;
-        boolean ng = gamepad1.b;
-        boolean ps = gamepad1.left_bumper;
-        boolean ns = gamepad1.right_bumper;
+        double rt = gamepad2.right_trigger;
+        boolean pg = gamepad2.a;
+        boolean ng = gamepad2.b;
+        boolean ps = gamepad2.left_bumper;
+        boolean ns = gamepad2.right_bumper;
 
         left_front_motor.setPower(py + px +rx);
         right_front_motor.setPower(py - px - rx);
