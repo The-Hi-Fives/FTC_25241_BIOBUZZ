@@ -78,15 +78,15 @@ public class Robot extends OpMode
         double py = gamepad1.left_stick_y;
         double rx = gamepad1.right_stick_x;
         // intake
-        double im = gamepad1.right_trigger;
+        double im = gamepad2.right_trigger;
         // pollen gate
-        boolean pg = gamepad1.a;
+        boolean pg = gamepad2.a;
         // nectar gate
-        boolean ng = gamepad1.b;
+        boolean ng = gamepad2.b;
         // pollen shooter
-        boolean ps = gamepad1.left_bumper;
-        // nectar gate
-        boolean ns = gamepad1.right_bumper;
+        boolean ps = gamepad2.left_bumper;
+        // nectar shooter
+        boolean ns = gamepad2.right_bumper;
 
 
         // this is for mechanum drive
