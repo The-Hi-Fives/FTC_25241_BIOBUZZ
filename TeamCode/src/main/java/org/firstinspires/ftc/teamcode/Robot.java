@@ -73,13 +73,19 @@ public class Robot extends OpMode
     public void loop()
     {
         // telling everything what will activate it on the gamepad
+        // for mechanum drive
         double px = gamepad1.left_stick_x;
         double py = gamepad1.left_stick_y;
         double rx = gamepad1.right_stick_x;
-        double rt = gamepad1.right_trigger;
+        // intake
+        double im = gamepad1.right_trigger;
+        // pollen gate
         boolean pg = gamepad1.a;
+        // nectar gate
         boolean ng = gamepad1.b;
+        // pollen shooter
         boolean ps = gamepad1.left_bumper;
+        // nectar gate
         boolean ns = gamepad1.right_bumper;
 
 
@@ -90,7 +96,7 @@ public class Robot extends OpMode
         right_back_motor.setPower(py - px + rx);
 
         // setting the intake
-        if (rt > 0.5)
+        if (im > 0.5)
         {
             right_intake_motor.setPower(1);
             left_intake_motor.setPower(1);
