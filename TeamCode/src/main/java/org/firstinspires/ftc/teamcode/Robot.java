@@ -123,8 +123,8 @@ public class Robot extends OpMode
         }
 
         // this is for sevo gates
-        nectar_gate_servo.setPosition(ng ? 0.3 : 0.0);
-        pollen_gate_servo.setPosition(pg ? 0.3 : 0.0);
+//        nectar_gate_servo.setPosition(ng ? 0.3 : 0.0);
+//        pollen_gate_servo.setPosition(pg ? 0.3 : 0.0);
 
         // this is for the shooters
         pollen_shooter.setPower(ps ? 1.0 : 0.0);
