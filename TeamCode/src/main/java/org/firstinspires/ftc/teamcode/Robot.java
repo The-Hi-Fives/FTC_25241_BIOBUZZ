@@ -5,6 +5,7 @@ import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
@@ -20,7 +21,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @TeleOp()
 public class Robot extends OpMode
 {
-    // making all the devices
     private DcMotor left_front_motor;
     private DcMotor right_front_motor;
     private DcMotor left_back_motor;
@@ -33,142 +33,119 @@ public class Robot extends OpMode
     private DcMotor nectar_shooter;
 
     // sensors and camera
-    private DistanceSensor distanceSensor;
-    private Limelight3A limelight;
+//    private DistanceSensor distanceSensor;
+//    private Limelight3A limelight;
 
 
 
     @Override
     public void init()
     {
-        // telling everything what it is plugged into
-        left_front_motor =hardwareMap.get(DcMotor.class, "front_left_motor");
-        right_front_motor =hardwareMap.get(DcMotor.class, "front_right_motor");
-        left_back_motor =hardwareMap.get(DcMotor.class, "back_left_motor");
-        right_back_motor =hardwareMap.get(DcMotor.class, "back_right_motor");
+        // tekking the robot what is plugged into what
+        left_front_motor =hardwareMap.get(DcMotor.class, "left_front_motor");
+        right_front_motor =hardwareMap.get(DcMotor.class, "right_front_motor");
+        left_back_motor =hardwareMap.get(DcMotor.class, "left_back_motor");
+        right_back_motor =hardwareMap.get(DcMotor.class, "right_back_motor");
         right_intake_motor = hardwareMap.get(DcMotor.class, "right_intake_motor");
         left_intake_motor = hardwareMap.get(DcMotor.class, "left_intake_motor");
-        nectar_gate_servo = hardwareMap.get(Servo.class, "nectar_gate_servo");
-        pollen_gate_servo = hardwareMap.get(Servo.class, "pollen_gate_servo");
-        pollen_shooter = hardwareMap.get(DcMotor.class, "pollen_shooter");
+        nectar_gate_servo = hardwareMap.get(Servo.class, "nectar_servo");
+        pollen_gate_servo = hardwareMap.get(Servo.class, "pollen_servo");
         nectar_shooter = hardwareMap.get(DcMotor.class, "nectar_shooter");
+        pollen_shooter = hardwareMap.get(DcMotor.class, "pollen_shooter");
 
-        // setting the direction of the motors
-        right_front_motor.setDirection(DcMotor.Direction.REVERSE);
+        // setting direction of motors
         right_back_motor.setDirection(DcMotor.Direction.REVERSE);
+        right_front_motor.setDirection(DcMotor.Direction.REVERSE);
+
         right_intake_motor.setDirection(DcMotor.Direction.REVERSE);
+        pollen_shooter.setDirection(DcMotor.Direction.REVERSE);
 
         //hardware map - distance sensor
-        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance_sensor");
+//        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance_sensor");
 
         // Hardware Map - Limelight
-        limelight = hardwareMap.get(Limelight3A.class, "limelight");
-        limelight.setPollRateHz(100);
-        limelight.start();
-        limelight.pipelineSwitch(0);
+//        limelight = hardwareMap.get(Limelight3A.class, "limelight");
+//        limelight.setPollRateHz(100);
+//        limelight.start();
+//        limelight.pipelineSwitch(0);
         //The zero needs to be set up for the April tags
     }
 
     @Override
     public void loop()
     {
-        // telling everything what will activate it on the gamepad
-        // for mechanum drive
+        // this is for driving
         double px = gamepad1.left_stick_x;
         double py = gamepad1.left_stick_y;
-        double rx = gamepad1.right_stick_x;
-        // intake
-        double im = gamepad2.right_trigger;
-        // pollen gate
+        double rx = -gamepad1.right_stick_x;
+        // this is for intake and outtake
+        double rt = gamepad2.right_trigger;
+        double lt = gamepad2.left_trigger;
+        // gate servos
         boolean pg = gamepad2.a;
-        // nectar gate
         boolean ng = gamepad2.b;
-        // pollen shooter
+        // these are the shooters
         boolean ps = gamepad2.left_bumper;
-        // nectar shooter
         boolean ns = gamepad2.right_bumper;
 
+        // this is driving
+        left_front_motor.setPower(py + px +rx);
+        right_front_motor.setPower(py - px - rx);
+        left_back_motor.setPower(py - px + rx);
+        right_back_motor.setPower(py + px - rx);
 
-        // this is for mechanum drive
-        left_front_motor.setPower(py - px - rx);
-        right_front_motor.setPower(py + px + rx);
-        left_back_motor.setPower(py + px - rx);
-        right_back_motor.setPower(py - px + rx);
 
-        // setting the intake
-        if (im > 0.5)
+        // this is for intaking
+        if (rt > 0.5)
         {
-            right_intake_motor.setPower(1);
-            left_intake_motor.setPower(1);
+            right_intake_motor.setPower(-1);
+            left_intake_motor.setPower(-1);
         }
         else
         {
             right_intake_motor.setPower(0);
             left_intake_motor.setPower(0);
         }
-        telemetry.addData("right intake",right_intake_motor.getPower());
-        telemetry.addData("left intake",right_intake_motor.getPower());
 
-        // setting the nectar gate up
-        if (ng)
+
+        // this is for outake
+        if (lt > 0.5)
         {
-            nectar_gate_servo.setPosition(0.3);
+            right_intake_motor.setDirection(DcMotor.Direction.FORWARD);
+            left_intake_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+            right_intake_motor.setPower(-1);
+            left_intake_motor.setPower(-1);
         }
         else
         {
-            nectar_gate_servo.setPosition(0);
+            right_intake_motor.setPower(0);
+            left_intake_motor.setPower(0);
         }
-        telemetry.addData("nectar gate",nectar_gate_servo.getPosition());
 
-        // setting the pollen gate up
-        if (pg)
-        {
-            pollen_gate_servo.setPosition(0.3);
-        }
-        else
-        {
-            pollen_gate_servo.setPosition(0);
-        }
-        telemetry.addData("pollen gate",pollen_gate_servo.getPosition());
+        // this is for sevo gates
+        nectar_gate_servo.setPosition(ng ? 0.3 : 0.0);
+        pollen_gate_servo.setPosition(pg ? 0.3 : 0.0);
 
-        // setting up the pollen shooter
-        if (ps)
-        {
-            pollen_shooter.setPower(1);
-        }
-        else
-        {
-            pollen_shooter.setPower(0);
-        }
-        telemetry.addData("pollen shooter",pollen_shooter.getPower());
-
-        // setting up the nectar shooter
-        if (ns)
-        {
-            nectar_shooter.setPower(1);
-        }
-        else
-        {
-            nectar_shooter.setPower(0);
-        }
-        telemetry.addData("nectar shooter",nectar_shooter.getPower());
+        // this is for the shooters
+        pollen_shooter.setPower(ps ? 1.0 : 0.0);
+        nectar_shooter.setPower(ns ? -1.0 : 0.0);
 
         // - DISTANCE SENSOR (LiDAR)
-        double distanceInches = distanceSensor.getDistance(DistanceUnit.INCH);
-        telemetry.addData("LiDAR Distance (in)", "%.2f", distanceInches);
+//        double distanceInches = distanceSensor.getDistance(DistanceUnit.INCH);
+//        telemetry.addData("LiDAR Distance (in)", "%.2f", distanceInches);
 
         // - LIMELIGHT APRILTAG READINGS
-        LLResult result = limelight.getLatestResult();
-        if (result != null && result.isValid()) {
-            telemetry.addData("Limelight Tx", result.getTx());
-            telemetry.addData("Limelight Ty", result.getTy());
-
-            for (LLResultTypes.FiducialResult fiducial : result.getFiducialResults()) {
-                telemetry.addData("Detected Tag ID", fiducial.getFiducialId());
-            }
-        } else {
-            telemetry.addData("Limelight", "No tag visible");
-        }
-        telemetry.update();
+//        LLResult result = limelight.getLatestResult();
+//        if (result != null && result.isValid()) {
+//            telemetry.addData("Limelight Tx", result.getTx());
+//            telemetry.addData("Limelight Ty", result.getTy());
+//
+//            for (FiducialResult fiducial : result.getFiducialResults()) {
+//                telemetry.addData("Detected Tag ID", fiducial.getFiducialId());
+//            }
+//        } else {
+//            telemetry.addData("Limelight", "No tag visible");
+//        }
+//        telemetry.update();
     }
 }

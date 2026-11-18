@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
@@ -22,8 +23,8 @@ public class Robot_sensors extends OpMode
     private DcMotor right_back_motor;
     private DcMotor right_intake_motor;
     private DcMotor left_intake_motor;
-//    private Servo nectar_gate_servo;
-//    private Servo pollen_gate_servo;
+    private Servo nectar_gate_servo;
+    private Servo pollen_gate_servo;
     private DcMotor pollen_shooter;
     private DcMotor nectar_shooter;
 
@@ -36,17 +37,19 @@ public class Robot_sensors extends OpMode
     @Override
     public void init()
     {
+        // tekking the robot what is plugged into what
         left_front_motor =hardwareMap.get(DcMotor.class, "left_front_motor");
         right_front_motor =hardwareMap.get(DcMotor.class, "right_front_motor");
         left_back_motor =hardwareMap.get(DcMotor.class, "left_back_motor");
         right_back_motor =hardwareMap.get(DcMotor.class, "right_back_motor");
         right_intake_motor = hardwareMap.get(DcMotor.class, "right_intake_motor");
         left_intake_motor = hardwareMap.get(DcMotor.class, "left_intake_motor");
-//        nectar_gate_servo = hardwareMap.get(Servo.class, "nectar_gate_servo");
-//        pollen_gate_servo = hardwareMap.get(Servo.class, "pollen_gate_servo");
+        nectar_gate_servo = hardwareMap.get(Servo.class, "nectar_servo");
+        pollen_gate_servo = hardwareMap.get(Servo.class, "pollen_servo");
         nectar_shooter = hardwareMap.get(DcMotor.class, "nectar_shooter");
         pollen_shooter = hardwareMap.get(DcMotor.class, "pollen_shooter");
 
+        // setting direction of motors
         right_back_motor.setDirection(DcMotor.Direction.REVERSE);
         right_front_motor.setDirection(DcMotor.Direction.REVERSE);
 
@@ -67,20 +70,28 @@ public class Robot_sensors extends OpMode
     @Override
     public void loop()
     {
+        // this is for driving
         double px = gamepad1.left_stick_x;
         double py = gamepad1.left_stick_y;
         double rx = -gamepad1.right_stick_x;
+        // this is for intake and outtake
         double rt = gamepad2.right_trigger;
+        double lt = gamepad2.left_trigger;
+        // gate servos
         boolean pg = gamepad2.a;
         boolean ng = gamepad2.b;
+        // these are the shooters
         boolean ps = gamepad2.left_bumper;
         boolean ns = gamepad2.right_bumper;
 
+        // this is driving
         left_front_motor.setPower(py + px +rx);
         right_front_motor.setPower(py - px - rx);
         left_back_motor.setPower(py - px + rx);
         right_back_motor.setPower(py + px - rx);
 
+
+        // this is for intaking
         if (rt > 0.5)
         {
            right_intake_motor.setPower(-1);
@@ -92,9 +103,26 @@ public class Robot_sensors extends OpMode
             left_intake_motor.setPower(0);
         }
 
-//        nectar_gate_servo.setPosition(ng ? 0.3 : 0.0);
-//        pollen_gate_servo.setPosition(pg ? 0.3 : 0.0);
-//
+
+        // this is for outake
+        if (lt > 0.5)
+        {
+            right_intake_motor.setDirection(DcMotor.Direction.FORWARD);
+            left_intake_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+            right_intake_motor.setPower(-1);
+            left_intake_motor.setPower(-1);
+        }
+        else
+        {
+            right_intake_motor.setPower(0);
+            left_intake_motor.setPower(0);
+        }
+
+        // this is for sevo gates
+        nectar_gate_servo.setPosition(ng ? 0.3 : 0.0);
+        pollen_gate_servo.setPosition(pg ? 0.3 : 0.0);
+
+        // this is for the shooters
         pollen_shooter.setPower(ps ? 1.0 : 0.0);
         nectar_shooter.setPower(ns ? -1.0 : 0.0);
 
