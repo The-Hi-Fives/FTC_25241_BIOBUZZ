@@ -82,8 +82,8 @@ public class Robot extends OpMode
         double rt = gamepad2.right_trigger;
         double lt = gamepad2.left_trigger;
         // gate servos
-        boolean pg = gamepad2.a;
-        boolean ng = gamepad2.b;
+//        boolean pg = gamepad2.a;
+//        boolean ng = gamepad2.b;
         // these are the shooters
         boolean ps = gamepad2.left_bumper;
         boolean ns = gamepad2.right_bumper;
