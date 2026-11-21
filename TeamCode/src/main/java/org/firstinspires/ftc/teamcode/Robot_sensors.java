@@ -23,8 +23,8 @@ public class Robot_sensors extends OpMode
     private DcMotor right_back_motor;
     private DcMotor right_intake_motor;
     private DcMotor left_intake_motor;
-    private Servo nectar_gate_servo;
-    private Servo pollen_gate_servo;
+//    private Servo nectar_gate_servo;
+//    private Servo pollen_gate_servo;
     private DcMotor pollen_shooter;
     private DcMotor nectar_shooter;
 
@@ -44,8 +44,8 @@ public class Robot_sensors extends OpMode
         right_back_motor =hardwareMap.get(DcMotor.class, "right_back_motor");
         right_intake_motor = hardwareMap.get(DcMotor.class, "right_intake_motor");
         left_intake_motor = hardwareMap.get(DcMotor.class, "left_intake_motor");
-        nectar_gate_servo = hardwareMap.get(Servo.class, "nectar_servo");
-        pollen_gate_servo = hardwareMap.get(Servo.class, "pollen_servo");
+//        nectar_gate_servo = hardwareMap.get(Servo.class, "nectar_servo");
+//        pollen_gate_servo = hardwareMap.get(Servo.class, "pollen_servo");
         nectar_shooter = hardwareMap.get(DcMotor.class, "nectar_shooter");
         pollen_shooter = hardwareMap.get(DcMotor.class, "pollen_shooter");
 
@@ -119,8 +119,8 @@ public class Robot_sensors extends OpMode
         }
 
         // this is for sevo gates
-        nectar_gate_servo.setPosition(ng ? 0.3 : 0.0);
-        pollen_gate_servo.setPosition(pg ? 0.3 : 0.0);
+//        nectar_gate_servo.setPosition(ng ? 0.3 : 0.0);
+//        pollen_gate_servo.setPosition(pg ? 0.3 : 0.0);
 
         // this is for the shooters
         pollen_shooter.setPower(ps ? 1.0 : 0.0);
