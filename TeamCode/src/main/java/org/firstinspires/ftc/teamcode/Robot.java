@@ -6,14 +6,14 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
+//import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 // limelight imports
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-// the lines below say they are not used but were in zoie's
+// the lines below say they are not used but were in zoie's, and it does not work with them commeted out
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes.FiducialResult;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -27,8 +27,8 @@ public class Robot extends OpMode
     private DcMotor right_back_motor;
     private DcMotor right_intake_motor;
     private DcMotor left_intake_motor;
-    private Servo nectar_gate_servo;
-    private Servo pollen_gate_servo;
+//    private Servo nectar_gate_servo;
+//    private Servo pollen_gate_servo;
     private DcMotor pollen_shooter;
     private DcMotor nectar_shooter;
 
@@ -48,8 +48,8 @@ public class Robot extends OpMode
         right_back_motor =hardwareMap.get(DcMotor.class, "right_back_motor");
         right_intake_motor = hardwareMap.get(DcMotor.class, "right_intake_motor");
         left_intake_motor = hardwareMap.get(DcMotor.class, "left_intake_motor");
-        nectar_gate_servo = hardwareMap.get(Servo.class, "nectar_servo");
-        pollen_gate_servo = hardwareMap.get(Servo.class, "pollen_servo");
+//        nectar_gate_servo = hardwareMap.get(Servo.class, "nectar_servo");
+//        pollen_gate_servo = hardwareMap.get(Servo.class, "pollen_servo");
         nectar_shooter = hardwareMap.get(DcMotor.class, "nectar_shooter");
         pollen_shooter = hardwareMap.get(DcMotor.class, "pollen_shooter");
 
