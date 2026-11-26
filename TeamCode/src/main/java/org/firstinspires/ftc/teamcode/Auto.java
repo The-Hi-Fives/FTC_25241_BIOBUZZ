@@ -14,7 +14,7 @@ private DcMotor left_back_motor;
 private DcMotor right_back_motor;
 
 // Intake & Shooter hardware (Servos removed)
-private DcMotor right_intake_motor;
+//private DcMotor right_intake_motor;
 private DcMotor left_intake_motor;
 private DcMotor pollen_shooter;
 private DcMotor nectar_shooter;
@@ -31,7 +31,7 @@ right_front_motor = hardwareMap.get(DcMotor.class, "right_front_motor");
 left_back_motor = hardwareMap.get(DcMotor.class, "left_back_motor");
 right_back_motor = hardwareMap.get(DcMotor.class, "right_back_motor");
 
-right_intake_motor = hardwareMap.get(DcMotor.class, "right_intake_motor");
+//right_intake_motor = hardwareMap.get(DcMotor.class, "right_intake_motor");
 left_intake_motor = hardwareMap.get(DcMotor.class, "left_intake_motor");
 nectar_shooter = hardwareMap.get(DcMotor.class, "nectar_shooter");
 pollen_shooter = hardwareMap.get(DcMotor.class, "pollen_shooter");
@@ -39,7 +39,7 @@ pollen_shooter = hardwareMap.get(DcMotor.class, "pollen_shooter");
 // 2. Motor Directions
 right_back_motor.setDirection(DcMotor.Direction.REVERSE);
 right_front_motor.setDirection(DcMotor.Direction.REVERSE);
-right_intake_motor.setDirection(DcMotor.Direction.REVERSE);
+//right_intake_motor.setDirection(DcMotor.Direction.REVERSE);
 pollen_shooter.setDirection(DcMotor.Direction.REVERSE);
 
 // Brake mode helps stop immediately
@@ -61,7 +61,7 @@ if (opModeIsActive()) {
 telemetry.addData("Step", "1: Shooting Pre-load Nectar");
 telemetry.update();
 
-pollen_shooter.setPower(-1.0);
+pollen_shooter.setPower(1.0);
 sleep(5000); // 5 seconds of shooting
 pollen_shooter.setPower(0.0);
 
@@ -71,7 +71,7 @@ pollen_shooter.setPower(0.0);
 telemetry.addData("Step", "2: Backing up 5 inches");
 telemetry.update();
 
-drive(0.3, 0.3, 0.3, 0.3);
+drive(0.7, 0.7, 0.7, 0.7);
 sleep(BACKUP_5_INCHES_MS);
 stopDrive();
 sleep(150);
