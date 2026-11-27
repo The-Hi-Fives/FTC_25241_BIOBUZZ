@@ -137,8 +137,8 @@ public class Robot_sensors extends OpMode
         lastYState = currentYState;
 
         if (pollenMoving) {
-            if (pollenTimer.seconds() < 0.5) {
-                pollen_gate_servo.setPower(pollenGateOpen ? 0.5 : -0.5);
+            if (pollenTimer.seconds() < 0.2) {
+                pollen_gate_servo.setPower(pollenGateOpen ? 0.2 : -0.2);
             } else {
                 pollen_gate_servo.setPower(0.0);
                 pollenMoving = false;
@@ -155,8 +155,8 @@ public class Robot_sensors extends OpMode
         lastXState = currentXState;
 
         if (nectarMoving) {
-            if (nectarTimer.seconds() < 0.5) {
-                nectar_gate_servo.setPower(nectarGateOpen ? 0.5 : -0.5);
+            if (nectarTimer.seconds() < 0.3) {
+                nectar_gate_servo.setPower(nectarGateOpen ? 0.3 : -0.3);
             } else {
                 nectar_gate_servo.setPower(0.0);
                 nectarMoving = false;
