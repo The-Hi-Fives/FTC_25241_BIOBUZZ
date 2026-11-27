@@ -65,7 +65,7 @@ public class Robot_sensors extends OpMode
         right_back_motor.setDirection(DcMotor.Direction.REVERSE);
         right_front_motor.setDirection(DcMotor.Direction.REVERSE);
 
-//        right_intake_motor.setDirection(DcMotor.Direction.REVERSE);
+        left_intake_motor.setDirection(DcMotor.Direction.REVERSE);
         pollen_shooter.setDirection(DcMotor.Direction.REVERSE);
 
         //hardware map - distance sensor
