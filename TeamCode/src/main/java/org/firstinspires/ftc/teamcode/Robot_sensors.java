@@ -65,7 +65,7 @@ public class Robot_sensors extends OpMode
         right_back_motor.setDirection(DcMotor.Direction.REVERSE);
         right_front_motor.setDirection(DcMotor.Direction.REVERSE);
 
-        left_intake_motor.setDirection(DcMotor.Direction.REVERSE);
+//        left_intake_motor.setDirection(DcMotor.Direction.REVERSE);
         pollen_shooter.setDirection(DcMotor.Direction.REVERSE);
 
         //hardware map - distance sensor
@@ -85,10 +85,8 @@ public class Robot_sensors extends OpMode
         double rt = gamepad2.right_trigger;
         double lt = gamepad2.left_trigger;
         //these are the servos
-        boolean nectar_forward = gamepad2.x; // Hold X for Nectar forward/in
-        boolean nectar_backward = gamepad2.a; // Hold A for Nectar backward/out
-        boolean pollen_forward = gamepad2.y; // Hold Y for Pollen forward
-        boolean pollen_backward = gamepad2.b; // Hold B for Pollen backward
+        //pollen gate is gamepad2y
+        //nectar gate is gamepad2x
         // these are the shooters
         boolean ps = gamepad2.left_bumper;
         boolean ns = gamepad2.right_bumper;
